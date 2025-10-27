@@ -23,7 +23,6 @@ body{
     
     background-size: cover;
     background-position: center;
-    padding: 0.75rem;
     margin-bottom: 1rem;
     border: 0.5px solid #27272777;
     border-radius: 0.25rem;
@@ -31,16 +30,16 @@ body{
 }
 
 .acessar-whatsapp {
-    width: 40vh;
-    height: 10vh;
+    width: 40vw;
+    height: 5vh;
     background: #22c3b0;
     background: linear-gradient(6deg, rgba(34, 195, 176, 1) 0%, rgba(114, 253, 45, 1) 100%);
     position: relative;
 }
 
 .informe-numero{
-    width: 90vh;
-    height: 10vh;
+    width: 90vw;
+    height: 5vh;
     background: #22c3b0;
     background: linear-gradient(6deg, rgba(34, 195, 176, 1) 0%, rgba(114, 253, 45, 1) 100%);
 }
