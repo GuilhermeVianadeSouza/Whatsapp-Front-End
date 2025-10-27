@@ -75,6 +75,9 @@ async function contatosWhatsapp(informacoes) {
     entradaInformacoes.innerHTML = '' //limpando o body para agora sim ser colocadas novas divs a serem utilizadas na aplicação
 
     const caminhoImagens = './img/' //Definindo o caminho das imagens para um maior controle em caso de mudança
+
+    const headerUsuario = document.createElement('div')
+    headerUsuario.classList.add('headerUsuario')
     
     //Criação dos OBJETOS, DIV E AFINS que receberam as informações do JSON pego anteriormente em sequencia
     const contatos = document.createElement('div')
@@ -101,6 +104,7 @@ async function contatosWhatsapp(informacoes) {
     contatos.appendChild(quadradoContato)
 
     entradaInformacoes.appendChild(contatos)
+    cabecario.appendChild(headerUsuario)
     })
 }
 
