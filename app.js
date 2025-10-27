@@ -20,7 +20,7 @@ const escopo = document.getElementById('escopo')
     whatsappInput.type = 'tel' //defino o input como para telefone
     whatsappInput.placeholder = 'Digite seu número'
     whatsappInput.maxLength = '11' //coloco um limitador máximo
-    whatsappInput.pattern = '\d{11}'
+    whatsappInput.pattern = '\d{11}' 
     whatsappInput.classList.add('informe-numero')
 
     const botaoAcessar = document.createElement('button')
@@ -28,48 +28,89 @@ const escopo = document.getElementById('escopo')
     botaoAcessar.classList.add('acessar-whatsapp')
 
     botaoAcessar.addEventListener('click', function() {
-        const valorDigitado = whatsappInput.value
+        const valorDigitado = whatsappInput.value //pegando o valor do imput
 
-        confirmandoWhatsapp(valorDigitado)
+        confirmandoWhatsapp(valorDigitado) //chamando a função que vai fazer o fetch e validar
     })
 
+
+    //acoplando os elementos para um pai/mãe
     whatsappFormulario.appendChild(whatsappLabel)
     whatsappFormulario.appendChild(whatsappInput)
     whatsappFormulario.appendChild(botaoAcessar)
     entradaInformacoes.appendChild(whatsappFormulario)
 
-    return entradaInformacoes
+    return entradaInformacoes //retornando o formulario para ser visualizado pelo usuário
     } 
 
 
+    //função feita para confirmar qual usuário está querendo suas informações
 async function confirmandoWhatsapp(numero){
     try {
-        const url = (`https://whatsapp-back-end.onrender.com/v1/whatsapp/informationforcontact/${numero}`)
-        const resposta = await fetch(url)
+        const url = (`https://whatsapp-back-end.onrender.com/v1/whatsapp/informationforcontact/${numero}`) //caminho para realização do fetch, declaração do ${numero} que é o valorDigitado do evento do botão que fizemos na função anterior
+        const resposta = await fetch(url) //Realização do fetch (pegando as informações da API)
 
         if(!resposta.ok){
-            throw new error(`Erro da API: ${resposta.status} ${resposta.statusText}`);
+            throw new error(`Erro da API: ${resposta.status} ${resposta.statusText}`); //Aqui nesse quesito é definido caso der um erro.
         }
 
-        const informacoes = await resposta.json()
-        document.body.innerHTML = ''
-        contatosWhatsapp()
+        const informacoes = await resposta.json() //criado uma constante apenas para segurar a resposta.json (segurança para próximas utilizações)
+        document.body.replaceChildren() //limpando o body para visualização da nova tela.
+        contatosWhatsapp(informacoes) //chamando a função que vai trazer a nova tela.
     } catch (error) {
         return mostrarFormulario
     }
 }
 
-async function contatosWhatsapp() {
-    document.body.appendChild(cabecario)
+//função que mostra a nova tela, a tela dos contatos.
+async function contatosWhatsapp(informacoes) {
+
+    console.log(informacoes)
+
+    //declarando novamente o cabecario, body e footer da tela
+    document.body.appendChild(cabecario) 
     document.body.appendChild(entradaInformacoes)
     document.body.appendChild(escopo)
 
-    entradaInformacoes.innerHTML = ''
+    entradaInformacoes.innerHTML = '' //limpando o body para agora sim ser colocadas novas divs a serem utilizadas na aplicação
 
+    const caminhoImagens = './img/' //Definindo o caminho das imagens para um maior controle em caso de mudança
     
+    //Criação dos OBJETOS, DIV E AFINS que receberam as informações do JSON pego anteriormente em sequencia
+    const contatos = document.createElement('div')
+    contatos.classList.add('contatos-whatsapp')
+
+    //Criação de repetição para criação da lista de contatos ao lado.
+    informacoes.information.contacts.forEach(func =>{ //O que ocorre nesse for each: 
+    // Adentramos a const que guardar o JSON (informacoes), depois entramos em information(objeto) e assim entramos em contacts(array) e percorremos eles criando os elementos
+
+    const quadradoContato = document.createElement('div')
+    quadradoContato.classList.add('caixaContato')
+
+    const imagemContato = document.createElement('img')
+    imagemContato.src = caminhoImagens + informacoes.image
+    imagemContato.classList.add('foto-usuario')
+
+    const nomeContato = document.createElement('p')
+    nomeContato.classList.add('nome-usuario')
+    nomeContato.textContent = informacoes.name
+    
+
+    quadradoContato.appendChild(imagemContato)
+    quadradoContato.appendChild(nomeContato)
+    contatos.appendChild(quadradoContato)
+
+    entradaInformacoes.appendChild(contatos)
+    })
 }
 
-async function limpandoTela (){}
+async function ultimaConversa(numeroUsuario, numeroContato) {
+    try {
+        const url = (`https://whatsapp-back-end.onrender.com/v1/whatsapp/informationcontactuser/${numeroUsuario}${numeroContato}`)
+    } catch (error) {
+        
+    }
+}
 
 mostrarFormulario(entradaInformacoes)
 confirmandoWhatsapp()

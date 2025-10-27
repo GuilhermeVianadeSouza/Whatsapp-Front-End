@@ -43,3 +43,9 @@ body{
     background: #22c3b0;
     background: linear-gradient(6deg, rgba(34, 195, 176, 1) 0%, rgba(114, 253, 45, 1) 100%);
 }
+
+/*Fazendo o css da área principal dos contatos.*/
+
+.caixaContato{
+    background-color: white;
+}
