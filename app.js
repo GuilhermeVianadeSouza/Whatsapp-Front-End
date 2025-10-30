@@ -14,6 +14,7 @@ const escopo = document.getElementById('escopo')
 
     const whatsappLabel = document.createElement('label');
     whatsappLabel.textContent = 'Número de WhatsApp:';
+    whatsappLabel.classList.add('zap')
     whatsappLabel.htmlFor = 'whatsappInput';
 
     const whatsappInput = document.createElement('input')
@@ -83,6 +84,9 @@ async function contatosWhatsapp(informacoes) {
     const contatos = document.createElement('div')
     contatos.classList.add('contatos-whatsapp')
 
+    const infoContato = document.createElement('div')
+    infoContato.classList.add('info-contato')
+
     //Criação de repetição para criação da lista de contatos ao lado.
     informacoes.information.contacts.forEach(func =>{ //O que ocorre nesse for each: 
     // Adentramos a const que guardar o JSON (informacoes), depois entramos em information(objeto) e assim entramos em contacts(array) e percorremos eles criando os elementos
@@ -104,6 +108,7 @@ async function contatosWhatsapp(informacoes) {
     contatos.appendChild(quadradoContato)
 
     entradaInformacoes.appendChild(contatos)
+    cabecario.appendChild(infoContato)
     cabecario.appendChild(headerUsuario)
     })
 }
